@@ -1,1 +1,3 @@
 # MineSweeper-Mod
+
+So, I made a mod of MineSweeper...
