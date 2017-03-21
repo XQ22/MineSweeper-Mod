@@ -46,10 +46,9 @@ function CreateBoard(){
     }
     string = string + "<br>";
   }
-  
+  document.getElementById("board").innerHTML = string;
 };
 function Reveal(x,y){
-  string = "";
   var mince = "";
   switch(values[x][y]){
     case 0:
@@ -85,12 +84,6 @@ function Reveal(x,y){
     default:
       mince = "0.png";
     break;
-  }
-  for(var i = 0;i<setting[0];i++){
-    for(var j = 0;j<setting[1];j++){
-      string = string + "<img src=\""+mince+"\" />";
-    }
-    string = string + "<br>";
   }
 };
 </script>
