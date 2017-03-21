@@ -21,6 +21,9 @@ var minefield = {
   assignMines: function(){
     for(var i = 0;i<mines.length;i++){
       for(var j = 0;j<mines.length;j++){
+        if(this.mines[i][j] === 1){
+          values[i][j] = "mine";
+        }
         if(setting[3] === 0){
           values[i][j] = this.mines[i-1][j-1] + this.mines[i][j-1] + this.mines[i+1][j-1] + this.mines[i-1][j] + this.mines[i+1][j] + this.mines[i-1][j+1] + this.mines[i][j+1] + this.mines[i+1][j+1];
         }
@@ -31,20 +34,33 @@ var minefield = {
 function CreateBoard(){
   setting[0] = document.getElementById("width").value;
   setting[1] = document.getElementById("height").value;
-  setting[2] = document.getElementById("height").value;
+  setting[2] = document.getElementById("difficulty").value;
   setting[3] = document.getElementById("mode").value;
   minefield.getMines();
   minefield.assignMines();
+  for(var i = 0;i<setting[0];i++){
+      for(var j = 0;j<setting[1];j++){
+        document.getElementById("board").innerHTML = "";
+      }
+    }
+  
 };
-function Reveal(){
-
+function Reveal(x,y){
+  switch(values[x][y]){
+    case 0:
+      
+  }
 };
 </script>
 </head>
 <body>
 <h1>Minesweeper MOD!</h1>
 <div id="board"></div><br>
-<input id="width" /><input id="height" /><button onClick="" >Create</button>
-<input id="mode" /><input id="difficulty" />
+
+Width: <input id="width" value="12" /><br>
+Height: <input id="height" value="10" /><br>
+<button onClick="" >Create</button><br>
+  <h3>Advanced</h3>
+Mode<input id="mode" value="0" /><input id="difficulty" value="22"/>
 </body>
 </html>
