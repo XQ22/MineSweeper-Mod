@@ -12,9 +12,9 @@ var minefield = {
     for(var i = 0;i<setting[0];i++){
       for(var j = 0;j<setting[1];j++){
         if(Math.random()*setting[0]*setting[1] <= setting[2]/(setting[0]*setting[1])){
-          this.mines[i][j] = 1;
+          mines[i][j] = 1;
         } else {
-          this.mines[i][j] = 0;
+          mines[i][j] = 0;
         }
       }
     }
