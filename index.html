@@ -3,10 +3,11 @@
 <head>
 <title>MINESWEEPER MOD!</title>
 <script>
+var state = "play";
 var string = "";
 var setting = [0,0,0,0];
-var values = [[]];
-var mines = [[]];
+var values = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+var mines = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 var getMines = function(){
     for(var i = 0;i<setting[0];i++){
       for(var j = 0;j<setting[1];j++){
@@ -33,8 +34,8 @@ var assignMines = function(){
 };
 function CreateBoard(){
   var string = "";
-  setting[0] = document.getElementById("width").value;
-  setting[1] = document.getElementById("height").value;
+  setting[0] = document.getElementById("height").value;
+  setting[1] = document.getElementById("width").value;
   setting[2] = document.getElementById("difficulty").value;
   setting[3] = document.getElementById("mode").value;
   getMines();
@@ -46,6 +47,7 @@ function CreateBoard(){
     string = string + "<br>";
   }
   document.getElementById("board").innerHTML = string;
+  state = "play";
 };
 function Reveal(x,y){
   var mince = "";
