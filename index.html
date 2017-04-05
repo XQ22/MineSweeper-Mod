@@ -6,27 +6,26 @@
 var string = "";
 var setting = [0,0,0,0];
 var values = [[]];
-var minefield = {
-  mines: [[0,0],[0,0],[0,0]],
-  getMines: function(){
+var mines = [[]];
+var getMines = function(){
     for(var i = 0;i<setting[0];i++){
       for(var j = 0;j<setting[1];j++){
         if(Math.random()*setting[0]*setting[1] <= setting[2]/(setting[0]*setting[1])){
-          minefield.mines[i][j] = 1;
+          mines[i][j] = 1;
         } else {
-          minefield.mines[i][j] = 0;
+          mines[i][j] = 0;
         }
       }
     }
-  },
-  assignMines: function(){
+  };
+var assignMines = function(){
     for(var i = 0;i<mines.length;i++){
       for(var j = 0;j<mines.length;j++){
-        if(minefield.mines[i][j] === 1){
+        if(mines[i][j] === 1){
           values[i][j] = "mine";
         }
         if(setting[3] === 0){
-          values[i][j] = minefield.mines[i-1][j-1] + minefield.mines[i][j-1] + minefield.mines[i+1][j-1] + minefield.mines[i-1][j] + minefield.mines[i+1][j] + minefield.mines[i-1][j+1] + minefield.mines[i][j+1] + minefield.mines[i+1][j+1];
+          values[i][j] = mines[i-1][j-1] + mines[i][j-1] + mines[i+1][j-1] + mines[i-1][j] + mines[i+1][j] + mines[i-1][j+1] + mines[i][j+1] + mines[i+1][j+1];
         }
       }
     }
@@ -38,8 +37,8 @@ function CreateBoard(){
   setting[1] = document.getElementById("height").value;
   setting[2] = document.getElementById("difficulty").value;
   setting[3] = document.getElementById("mode").value;
-  minefield.getMines();
-  minefield.assignMines();
+  getMines();
+  assignMines();
   for(var i = 0;i<setting[0];i++){
     for(var j = 0;j<setting[1];j++){
       string = string + "<img id=\""+i+"-"+j+"\"src=\"0.png\" onClick=\"Reveal("+i+","+j+")\"/>";
@@ -90,7 +89,7 @@ function Reveal(x,y){
 </script>
 </head>
 <body>
-<h1>Minesweeper MOD!</h1>
+<h1>Minesweeper MOD!</h1><br>
 <div id="board"></div><br>
 
 Width: <input id="width" value="12" /><br>
