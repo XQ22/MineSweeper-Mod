@@ -12,9 +12,9 @@ var minefield = {
     for(var i = 0;i<setting[0];i++){
       for(var j = 0;j<setting[1];j++){
         if(Math.random()*setting[0]*setting[1] <= setting[2]/(setting[0]*setting[1])){
-          mines[i][j] = 1;
+          minefield.mines[i][j] = 1;
         } else {
-          mines[i][j] = 0;
+          minefield.mines[i][j] = 0;
         }
       }
     }
@@ -22,18 +22,18 @@ var minefield = {
   assignMines: function(){
     for(var i = 0;i<mines.length;i++){
       for(var j = 0;j<mines.length;j++){
-        if(this.mines[i][j] === 1){
+        if(minefield.mines[i][j] === 1){
           values[i][j] = "mine";
         }
         if(setting[3] === 0){
-          values[i][j] = this.mines[i-1][j-1] + this.mines[i][j-1] + this.mines[i+1][j-1] + this.mines[i-1][j] + this.mines[i+1][j] + this.mines[i-1][j+1] + this.mines[i][j+1] + this.mines[i+1][j+1];
+          values[i][j] = minefield.mines[i-1][j-1] + minefield.mines[i][j-1] + minefield.mines[i+1][j-1] + minefield.mines[i-1][j] + minefield.mines[i+1][j] + minefield.mines[i-1][j+1] + minefield.mines[i][j+1] + minefield.mines[i+1][j+1];
         }
       }
     }
   }
 };
 function CreateBoard(){
-  string = "";
+  var string = "";
   setting[0] = document.getElementById("width").value;
   setting[1] = document.getElementById("height").value;
   setting[2] = document.getElementById("difficulty").value;
@@ -42,7 +42,7 @@ function CreateBoard(){
   minefield.assignMines();
   for(var i = 0;i<setting[0];i++){
     for(var j = 0;j<setting[1];j++){
-      string = string + "<img src=\"0.png\" onClick=\"Reveal("+i+","+j+")\"/>";
+      string = string + "<img id=\""+i+"-"+j+"\"src=\"0.png\" onClick=\"Reveal("+i+","+j+")\"/>";
     }
     string = string + "<br>";
   }
@@ -85,6 +85,7 @@ function Reveal(x,y){
       mince = "0.png";
     break;
   }
+  document.getElementById(x+"-"+y).src = mince;
 };
 </script>
 </head>
