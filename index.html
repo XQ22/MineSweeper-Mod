@@ -3,16 +3,20 @@
 <head>
 <title>MINESWEEPER MOD!</title>
 <script>
+var revealedCount = 0;
+var minecount = 0;
 var state = "play";
 var string = "";
 var setting = [0,0,0,0];
 var values = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 var mines = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 var getMines = function(){
+    minecount = 0;
     for(var i = 0;i<setting[0];i++){
       for(var j = 0;j<setting[1];j++){
-        if(Math.random()*setting[0]*setting[1] <= setting[2]/(setting[0]*setting[1])){
+        if(Math.random() >= 0.5 && minecount <= setting[2]){
           mines[i][j] = 1;
+          minecount++;
         } else {
           mines[i][j] = 0;
         }
@@ -41,10 +45,11 @@ function CreateBoard(){
   getMines();
   assignMines();
   for(var i = 0;i<setting[0];i++){
+    string = string + "<tr>";
     for(var j = 0;j<setting[1];j++){
-      string = string + "<img id=\""+i+"-"+j+"\"src=\"0.png\" onClick=\"Reveal("+i+","+j+")\"/>";
+      string = string + "<td><img id=\""+i+"-"+j+"\"src=\"0.png\" onClick=\"Reveal("+i+","+j+")\"/></td>";
     }
-    string = string + "<br>";
+    string = string + "</tr>";
   }
   document.getElementById("board").innerHTML = string;
   state = "play";
@@ -81,12 +86,18 @@ function Reveal(x,y){
     break;
     case "mine":
       mince = "r0.png";
+      state = "lose";
+      revealedCount = 0;
     break;
     default:
       mince = "0.png";
     break;
   }
   document.getElementById(x+"-"+y).src = mince;
+  revealedCount++;
+  if(revealedCount === setting[0]*setting[1]-minecount){
+    state="win";
+  }
 };
 </script>
 </head>
