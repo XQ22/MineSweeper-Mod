@@ -38,6 +38,7 @@ var assignMines = function(){
     }
 };
 function CreateBoard(){
+  document.getElementById("Inspector").src = "Inspector.gif";
   var string = "";
   setting[0] = document.getElementById("height").value;
   setting[1] = document.getElementById("width").value;
@@ -86,24 +87,29 @@ function Reveal(x,y){
       mince = "8.png";
     break;
     case "mine":
-      mince = "r0.png";
+      mince = "m.png";
       state = "lose";
       revealedCount = 0;
+      document.getElementById("Inspector").src = "InspectorDead.png";
     break;
     default:
       mince = "0.png";
     break;
   }
-  document.getElementById(x+"-"+y).src = mince;
+  if(state === "play"){
+    document.getElementById(x+"-"+y).src = mince;
+  }
   revealedCount++;
   if(revealedCount === setting[0]*setting[1]-minecount){
     state="win";
+    document.getElementById("Inspector").src = "InspectorHappy.png";
   }
 };
 </script>
 </head>
 <body>
 <h1>Minesweeper MOD!</h1><br>
+<img src="" id="Inspector" />
 <table id="board"></table><br>
 
 Width: <input id="width" value="12" /><br>
