@@ -25,19 +25,40 @@ var getMines = function(){
     }
   };
 var assignMines = function(){
-    for(var i = 0;i<mines.length;i++){
-      for(var j = 0;j<mines.length;j++){
-        if(mines[i][j] === 1){
-          values[i][j] = "mine";
-        } else {
-          if(setting[3] === 0){
-            if(mines[i-1][j] !== undefined&&mines[i][j-1] !== undefined&&mines[i][j+1] !== undefined&&mines[i+1][j] !== undefined){
-              values[i][j] = mines[i-1][j] + mines[i+1][j] + mines[i+1][j+1] + mines[i+1][j-1] + mines[i][j+1] + mines[i][j-1] + mines[i-1][j+1] + mines[i-1][j-1];
+  for(var i = 0;i<mines.length;i++){
+    for(var j = 0;j<mines.length;j++){
+      if(mines[i][j] === 1){
+        values[i][j] = "mine";
+      } else {
+        if(setting[3] === 0){
+          if(mines[i-1][j]!==undefined){
+            values[i][j] += mines[i-1][j];
+            if(mines[i-1][j-1]!==undefined){
+              values[i][j] += mines[i-1][j-1];
             }
+            if(mines[i-1][j+1]!==undefined){
+              values[i][j] += mines[i-1][j+1];
+            }
+          }
+          if(mines[i+1][j]!==undefined){
+            values[i][j] += mines[i+1][j];
+            if(mines[i+1][j-1]!==undefined){
+              values[i][j] += mines[i+1][j-1];
+            }
+            if(mines[i+1][j+1]!==undefined){
+              values[i][j] += mines[i+1][j+1];
+            }
+          }
+          if(mines[i][j-1]!==undefined){
+            values[i][j] += mines[i+1][j-1];
+          }
+          if(mines[i][j+1]!==undefined){
+            values[i][j] += mines[i+1][j+1];
           }
         }
       }
     }
+  }
 };
 function CreateBoard(){
   document.getElementById("Inspector").src = "Inspector.gif";
@@ -63,6 +84,14 @@ function Reveal(x,y){
   switch(values[x][y]){
     case 0:
       mince = "r0.png";
+      Reveal(x-1,y-1);
+      Reveal(x-1,y+1);
+      Reveal(x+1,y-1);
+      Reveal(x+1,y+1);
+      Reveal(x-1,y);
+      Reveal(x,y+1);
+      Reveal(x,y-1);
+      Reveal(x+1,y);
     break;
     case 1:
       mince = "1.png";
