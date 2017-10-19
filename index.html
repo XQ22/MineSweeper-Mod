@@ -31,7 +31,9 @@ var assignMines = function(){
           values[i][j] = "mine";
         } else {
           if(setting[3] === 0){
-            values[i][j] = mines[i-1][j-1] + mines[i][j-1] + mines[i+1][j-1] + mines[i-1][j] + mines[i+1][j] + mines[i-1][j+1] + mines[i][j+1] + mines[i+1][j+1];
+            if(mines[i-1][j] !== undefined&&mines[i][j-1] !== undefined&&mines[i][j+1] !== undefined&&mines[i+1][j] !== undefined){
+              values[i][j] = mines[i-1][j] + mines[i+1][j] + mines[i+1][j+1] + mines[i+1][j-1] + mines[i][j+1] + mines[i][j-1] + mines[i-1][j+1] + mines[i-1][j-1];
+            }
           }
         }
       }
